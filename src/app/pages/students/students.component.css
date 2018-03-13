@@ -16,3 +16,7 @@
   width: 45%;
   margin: 10% 2.5%;
 }
+/deep/ p-calendar {
+  width: 86%;
+  border: 1px solid #A9A9A9;
+}

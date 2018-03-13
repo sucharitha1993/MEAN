@@ -4,6 +4,7 @@ import { StudentService } from './../../services/student.service';
 import { Component, OnInit } from '@angular/core';
 import { Message } from 'primeng/components/common/api';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-students',
@@ -61,12 +62,13 @@ export class StudentsComponent implements OnInit {
     student.name = student.name || null;
     student.id = student.id || null;
     student.standarad = student.standarad || null;
-    student.fees = student.fees || null;
+    student.date_of_joining = student.date_of_joining || null;
     this.studentForm = this.formBuilder.group({
       name: [student.name, Validators.required],
       id: [student.id, Validators.required],
       standarad: [student.standarad, Validators.required],
       fees: [student.fees, Validators.required],
+      date_of_joining: [student.date_of_joining, Validators.required],
     });
   }
 
@@ -77,7 +79,8 @@ export class StudentsComponent implements OnInit {
         'name': this.studentForm.controls['name'].value,
         'id': this.studentForm.controls['id'].value,
         'standarad': this.studentForm.controls['standarad'].value,
-        'fees': this.studentForm.controls['fees'].value
+        'fees': this.studentForm.controls['fees'].value,
+        'date_of_joining': this.studentForm.controls['date_of_joining'].value
       }
     }
     this.isAddStudent = false;
@@ -98,7 +101,8 @@ export class StudentsComponent implements OnInit {
         'name': this.studentForm.controls['name'].value,
         'id': this.studentForm.controls['id'].value,
         'standarad': this.studentForm.controls['standarad'].value,
-        'fees': this.studentForm.controls['fees'].value
+        'fees': this.studentForm.controls['fees'].value,
+        'date_of_joining': this.studentForm.controls['date_of_joining'].value
       }
     }
     this.isUpdateStudent = false;

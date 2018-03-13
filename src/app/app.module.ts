@@ -28,6 +28,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
+import { CalendarModule } from 'primeng/calendar';
 
 
 @NgModule({
@@ -53,7 +54,8 @@ import { SidebarModule } from 'primeng/sidebar';
     MessagesModule,
     MessageModule,
     ButtonModule,
-    SidebarModule
+    SidebarModule,
+    CalendarModule
   ],
   providers: [StudentService, ConfirmationService],
   bootstrap: [AppComponent]

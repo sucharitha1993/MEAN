@@ -5,7 +5,7 @@
 
 <!-- Dividing Screen into 4:6 for add button and Table display -->
 <div class="ui-g push-below-container">
-  <div class="ui-g-4">
+  <div class="ui-g-2">
     <!-- START OF ADD STUDENT BUTTON -->
     <div class='addstudent-button'>
       <button pButton type="button" icon="fa-plus" iconPos="left" label="Add Student" (click)="addStudentDialog()">
@@ -13,7 +13,7 @@
     </div>
     <!-- END OF ADD STUDENT BUTTON -->
   </div>
-  <div class="ui-g-6">
+  <div class="ui-g-8">
     <!-- START OF STUDENT TABLE -->
     <p-table [value]="students">
       <ng-template pTemplate="header">
@@ -22,6 +22,7 @@
           <th>Name</th>
           <th>Standarad</th>
           <th>Fees</th>
+          <th>Date of Joining</th>
           <th>Update</th>
           <th>Delete</th>
           <!-- <th>Upload Image</th> -->
@@ -29,10 +30,11 @@
       </ng-template>
       <ng-template pTemplate="body" let-student>
         <tr>
-          <td>{{student.id}}</td>
-          <td>{{student.name}}</td>
-          <td>{{student.standarad}}</td>
-          <td>{{student.fees}}</td>
+          <td>{{student?.id}}</td>
+          <td>{{student?.name}}</td>
+          <td>{{student?.standarad}}</td>
+          <td>{{student?.fees}}</td>
+          <td>{{student?.date_of_joining | date:"dd/MM/yyyy"}}</td>
           <td (click)='updateStudentDialog(student)'><i class="fa fa-pencil"></i></td>
           <td (click)='deleteStudentConfirmation(student.id)'><i class="fa fa-trash" aria-hidden="true"></i></td>
           <!-- <td>
@@ -66,10 +68,15 @@
       <div class="ui-inputgroup">
         <input type="number" class="form-control" formControlName="standarad" pInputText placeholder="standarad">
       </div>
-    </div>
+    </div>             
     <div class="ui-g-12 ui-md-12">
       <div class="ui-inputgroup">
         <input type="number" class="form-control" formControlName="fees" pInputText placeholder="fees">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <p-calendar formControlName="date_of_joining" placeholder="date of joining"></p-calendar>
       </div>
     </div>
     <div class='add-update-button'>
