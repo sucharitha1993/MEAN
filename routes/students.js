@@ -46,7 +46,7 @@ module.exports = function (app) {
     //to update particular student record (U - Update)
     app.put('/updateStudent', function (req, res) {
         var id = req.body.id;
-        Students.update({ id: id }, { $set: { name: req.body.name, standarad: req.body.standarad, fees: req.body.fees } }, function (err, result) {
+        Students.update({ id: id }, { $set: { name: req.body.name, standarad: req.body.standarad, fees: req.body.fees, date_of_joining: req.body.date_of_joining } }, function (err, result) {
             if (err) {
                 console.log(err);
                 res.send(`not able to update student with ${id} - ${err.errmsg}`);
