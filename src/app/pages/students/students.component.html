@@ -1,0 +1,91 @@
+<!-- START OF TOAST MESSAGES -->
+<p-messages [(value)]="msgs"></p-messages>
+<!-- END OF TOAST MESSAGES -->
+
+
+<!-- Dividing Screen into 4:6 for add button and Table display -->
+<div class="ui-g push-below-container">
+  <div class="ui-g-4">
+    <!-- START OF ADD STUDENT BUTTON -->
+    <div class='addstudent-button'>
+      <button pButton type="button" icon="fa-plus" iconPos="left" label="Add Student" (click)="addStudentDialog()">
+      </button>
+    </div>
+    <!-- END OF ADD STUDENT BUTTON -->
+  </div>
+  <div class="ui-g-6">
+    <!-- START OF STUDENT TABLE -->
+    <p-table [value]="students">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Standarad</th>
+          <th>Fees</th>
+          <th>Update</th>
+          <th>Delete</th>
+          <!-- <th>Upload Image</th> -->
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-student>
+        <tr>
+          <td>{{student.id}}</td>
+          <td>{{student.name}}</td>
+          <td>{{student.standarad}}</td>
+          <td>{{student.fees}}</td>
+          <td (click)='updateStudentDialog(student)'><i class="fa fa-pencil"></i></td>
+          <td (click)='deleteStudentConfirmation(student.id)'><i class="fa fa-trash" aria-hidden="true"></i></td>
+          <!-- <td>
+              <p-fileUpload name="myfile[]" url="./studentImages" customUpload="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
+          </td> -->
+        </tr>
+      </ng-template>
+    </p-table>
+    <!-- END OF STUDENT TABLE -->
+  </div>
+</div>
+<!-- End of add button and Table display Grid -->
+
+
+<!-- START OF ADD STUDENT SIDEBAR-->
+<p-sidebar [(visible)]='display' *ngIf='isAddStudent || isUpdateStudent'>
+  <div class="ui-g ui-fluid addStudentPopup" [formGroup]="studentForm">
+    <h2 *ngIf='isAddStudent'>Please add student details here</h2>
+    <h2 *ngIf='isUpdateStudent'>Please update student details here</h2>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="text" class="form-control" formControlName="name" pInputText placeholder="Name">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="number" class="form-control" formControlName="id" pInputText placeholder="Id">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="number" class="form-control" formControlName="standarad" pInputText placeholder="standarad">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="number" class="form-control" formControlName="fees" pInputText placeholder="fees">
+      </div>
+    </div>
+    <div class='add-update-button'>
+      <button *ngIf='isAddStudent' pButton type="button" icon="fa-check" iconPos="left" label="Add" [disabled]='studentForm.invalid'
+        (click)="addStudent()">
+          </button>
+      <button *ngIf='isUpdateStudent' pButton type="button" icon="fa-pencil" iconPos="left" label="Update" [disabled]='studentForm.invalid'
+        (click)="updateStudent()">
+          </button>
+    </div>
+  </div>
+</p-sidebar>
+<!-- END OF ADD STUDENT SIDEBAR -->
+
+
+
+<!-- START OF DELETE DIALOG BOX -->
+<p-confirmDialog></p-confirmDialog>
+<!-- END OF DELETE DIALOG BOX -->

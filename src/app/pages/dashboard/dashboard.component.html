@@ -1,0 +1,11 @@
+<div class='push-below-container'>
+  <h1>
+    Top Three Students of the School...!
+  </h1>
+
+  <ul>
+    <li *ngFor='let student of students'>
+      <span class="badge">{{student.id}}</span> {{student.name}}
+    </li>
+  </ul>
+</div>

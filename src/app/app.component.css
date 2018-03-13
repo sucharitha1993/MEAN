@@ -1,0 +1,15 @@
+.my-tabmenu  {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  position: fixed;
+}
+
+/deep/ .tabmenu-prime .ui-corner-all {
+  border-radius: 0px !important;
+}
+
+/deep/ .tabmenu-prime .ui-tabmenuitem {
+  margin: 30px 60px 0px 60px !important;
+}

@@ -1,0 +1,18 @@
+/* studentsComponent's private CSS styles */
+/deep/ p-messages {
+  top: 0;
+  right: 0;
+  z-index: 100;
+  position: absolute;  
+}
+.addstudent-button  {
+  position: fixed;
+  margin-left: 2%;
+}
+.addStudentPopup {
+  margin: 50% 5%;
+}
+.add-update-button {
+  width: 45%;
+  margin: 10% 2.5%;
+}
