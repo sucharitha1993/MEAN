@@ -62,7 +62,7 @@ export class StudentsComponent implements OnInit {
     student.name = student.name || null;
     student.id = student.id || null;
     student.standarad = student.standarad || null;
-    student.date_of_joining = student.date_of_joining || null;
+    student.date_of_joining = new Date(student.date_of_joining) || null;
     this.studentForm = this.formBuilder.group({
       name: [student.name, Validators.required],
       id: [student.id, Validators.required],
