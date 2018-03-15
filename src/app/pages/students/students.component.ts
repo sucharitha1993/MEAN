@@ -1,3 +1,4 @@
+import { AppLitteralsConfig } from './../../literals/app.literals';
 import { ConfirmationService } from 'primeng/api';
 import { IStudent } from './../../../interfaces/istudent';
 import { StudentService } from './../../services/student.service';
@@ -19,8 +20,8 @@ export class StudentsComponent implements OnInit {
   public isAddStudent: boolean = false;
   public isUpdateStudent: boolean = false;
   public display: boolean = false;
+  public AppLitteralsConfig: any = AppLitteralsConfig;
   studentForm: FormGroup;
-  uploadedFiles: any[] = [];
 
 
   constructor(private formBuilder: FormBuilder, private studentService: StudentService, private confirmationService: ConfirmationService) { }
@@ -42,7 +43,7 @@ export class StudentsComponent implements OnInit {
 
   //side bar for add Student
   addStudentDialog() {
-    this.initiateStudentControls();
+    this.initiateStudentControls();    
     this.isAddStudent = true;
     this.isUpdateStudent = false;
     this.display = true;
@@ -62,13 +63,16 @@ export class StudentsComponent implements OnInit {
     student.name = student.name || null;
     student.id = student.id || null;
     student.standarad = student.standarad || null;
-    student.date_of_joining = new Date(student.date_of_joining) || null;
+    if (student.date_of_joining)
+      student.date_of_joining = new Date(student.date_of_joining) || null;
+    student.img = student.img || null;
     this.studentForm = this.formBuilder.group({
       name: [student.name, Validators.required],
       id: [student.id, Validators.required],
       standarad: [student.standarad, Validators.required],
       fees: [student.fees, Validators.required],
       date_of_joining: [student.date_of_joining, Validators.required],
+      img: [student.img, Validators.required],
     });
   }
 
@@ -80,7 +84,8 @@ export class StudentsComponent implements OnInit {
         'id': this.studentForm.controls['id'].value,
         'standarad': this.studentForm.controls['standarad'].value,
         'fees': this.studentForm.controls['fees'].value,
-        'date_of_joining': this.studentForm.controls['date_of_joining'].value
+        'date_of_joining': this.studentForm.controls['date_of_joining'].value,
+        'img': this.studentForm.controls['img'].value,
       }
     }
     this.isAddStudent = false;
@@ -102,7 +107,8 @@ export class StudentsComponent implements OnInit {
         'id': this.studentForm.controls['id'].value,
         'standarad': this.studentForm.controls['standarad'].value,
         'fees': this.studentForm.controls['fees'].value,
-        'date_of_joining': this.studentForm.controls['date_of_joining'].value
+        'date_of_joining': this.studentForm.controls['date_of_joining'].value,
+        'img': this.studentForm.controls['img'].value,
       }
     }
     this.isUpdateStudent = false;
@@ -140,4 +146,17 @@ export class StudentsComponent implements OnInit {
       })
   }
 
+  /**
+ * Method to handle file stack upload complete
+ * @param files  file stack uploaded data 
+ */
+  onFileStackUploadComplete(files) {
+    let uploadedFiles = [];
+    if (files.success) {
+      files.data.forEach((data) => {
+        uploadedFiles.push(data);
+        this.studentForm.controls['img'].setValue(uploadedFiles);
+      });
+    }
+  }
 }

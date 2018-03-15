@@ -13,7 +13,7 @@
     </div>
     <!-- END OF ADD STUDENT BUTTON -->
   </div>
-  <div class="ui-g-8">
+  <div class="ui-g-10">
     <!-- START OF STUDENT TABLE -->
     <p-table [value]="students">
       <ng-template pTemplate="header">
@@ -25,7 +25,7 @@
           <th>Date of Joining</th>
           <th>Update</th>
           <th>Delete</th>
-          <!-- <th>Upload Image</th> -->
+          <th>Upload Image</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-student>
@@ -37,9 +37,14 @@
           <td>{{student?.date_of_joining | date:"dd/MM/yyyy"}}</td>
           <td (click)='updateStudentDialog(student)'><i class="fa fa-pencil"></i></td>
           <td (click)='deleteStudentConfirmation(student.id)'><i class="fa fa-trash" aria-hidden="true"></i></td>
-          <!-- <td>
-              <p-fileUpload name="myfile[]" url="./studentImages" customUpload="true" (uploadHandler)="myUploader($event)"></p-fileUpload>
-          </td> -->
+          <td>
+            <span *ngFor='let file of student?.img; let i = index;let last= last;'>
+                  <a href='{{file.url}}'class="font-red" target="_blank">
+                      <i class="fa fa-file"></i> {{file.filename}} <span *ngIf='!last'>,</span>
+            </a>
+            <br>
+            </span>
+          </td>
         </tr>
       </ng-template>
     </p-table>
@@ -79,6 +84,18 @@
         <p-calendar formControlName="date_of_joining" placeholder="date of joining"></p-calendar>
       </div>
     </div>
+    <!-- FILE STACK -->
+    <file-stack [data-accept]="AppLitteralsConfig.uploadOptions" data-maxFiles="6" (complete)="onFileStackUploadComplete($event)">
+      <div class='upload-button'>
+        <button pButton type="button" icon='fa-cloud-upload' iconPos="left" label="Upload Image"></button>
+      </div>
+    </file-stack>
+    <span *ngFor='let file of studentForm.controls["img"].value; let i = index;let last= last;'>
+          <a href='{{file.url}}'class="font-red" target="_blank">
+              <i class="fa fa-file"></i> {{file.filename}} <span *ngIf='!last'>,</span>
+    </a><br>
+    </span>
+    <!-- FILE STACK -->
     <div class='add-update-button'>
       <button *ngIf='isAddStudent' pButton type="button" icon="fa-check" iconPos="left" label="Add" [disabled]='studentForm.invalid'
         (click)="addStudent()">

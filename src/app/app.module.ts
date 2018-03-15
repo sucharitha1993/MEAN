@@ -14,9 +14,11 @@ import { StudentsComponent } from './pages/students/students.component';
 import { FacultyComponent } from './pages/faculty/faculty.component';
 import { OthersComponent } from './pages/others/others.component';
 import { ActivitiesComponent } from './pages/activities/activities.component';
+import { FileStackComponent } from './pages/filestack/filestack';
 
 //importing services
 import { StudentService } from './services/student.service';
+import { AppConfigService } from './services/app-config.services';
 
 
 // NG PRIME Components
@@ -38,7 +40,8 @@ import { CalendarModule } from 'primeng/calendar';
     DashboardComponent,
     FacultyComponent,
     OthersComponent,
-    ActivitiesComponent
+    ActivitiesComponent,
+    FileStackComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -57,7 +60,7 @@ import { CalendarModule } from 'primeng/calendar';
     SidebarModule,
     CalendarModule
   ],
-  providers: [StudentService, ConfirmationService],
+  providers: [StudentService, ConfirmationService, AppConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
