@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class StudentService {
 
-  public url: any = '/';
+  public url: any = 'http://localhost:9000/';
 
   constructor(private http: HttpClient) { }
 
