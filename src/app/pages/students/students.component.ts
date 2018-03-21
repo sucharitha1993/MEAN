@@ -15,7 +15,7 @@ import { DatePipe } from '@angular/common';
 export class StudentsComponent implements OnInit {
 
   public students: IStudent[];
-  public choosedStudent: IStudent;
+  public studentImage: any;
   msgs: Message[] = [];
   public isAddStudent: boolean = false;
   public isUpdateStudent: boolean = false;
@@ -43,7 +43,8 @@ export class StudentsComponent implements OnInit {
 
   //side bar for add Student
   addStudentDialog() {
-    this.initiateStudentControls();    
+    this.initiateStudentControls();
+    this.studentImage = './../../../assets/images/profile.jpg';    
     this.isAddStudent = true;
     this.isUpdateStudent = false;
     this.display = true;
@@ -51,6 +52,9 @@ export class StudentsComponent implements OnInit {
 
   //side bar for update Student
   updateStudentDialog(student) {
+    const studentImg = Object.assign({},student.img) || [];
+    studentImg[0] = studentImg[0] || {};
+    this.studentImage = studentImg[0].url || './../../../assets/images/profile.jpg';
     this.initiateStudentControls(student);
     this.isAddStudent = false;
     this.isUpdateStudent = true;
@@ -65,7 +69,10 @@ export class StudentsComponent implements OnInit {
     student.standarad = student.standarad || null;
     if (student.date_of_joining)
       student.date_of_joining = new Date(student.date_of_joining) || null;
-    student.img = student.img || null;
+    if (student.img && student.img.length == '0')
+      student.img = null;
+    else
+      student.img = student.img || null;
     this.studentForm = this.formBuilder.group({
       name: [student.name, Validators.required],
       id: [student.id, Validators.required],
@@ -156,6 +163,7 @@ export class StudentsComponent implements OnInit {
       files.data.forEach((data) => {
         uploadedFiles.push(data);
         this.studentForm.controls['img'].setValue(uploadedFiles);
+        this.studentImage = data.url;
       });
     }
   }

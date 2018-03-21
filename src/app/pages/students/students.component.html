@@ -23,9 +23,9 @@
           <th>Standarad</th>
           <th>Fees</th>
           <th>Date of Joining</th>
+          <th>Image</th>
           <th>Update</th>
           <th>Delete</th>
-          <th>Upload Image</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-student>
@@ -35,16 +35,16 @@
           <td>{{student?.standarad}}</td>
           <td>{{student?.fees}}</td>
           <td>{{student?.date_of_joining | date:"dd/MM/yyyy"}}</td>
-          <td (click)='updateStudentDialog(student)'><i class="fa fa-pencil"></i></td>
-          <td (click)='deleteStudentConfirmation(student.id)'><i class="fa fa-trash" aria-hidden="true"></i></td>
           <td>
             <span *ngFor='let file of student?.img; let i = index;let last= last;'>
-                  <a href='{{file.url}}'class="font-red" target="_blank">
-                      <i class="fa fa-file"></i> {{file.filename}} <span *ngIf='!last'>,</span>
+                    <a href='{{file.url}}'class="font-red" target="_blank">
+                        <i class="fa fa-file"></i> {{file.filename}} <span *ngIf='!last'>,</span>
             </a>
             <br>
             </span>
           </td>
+          <td (click)='updateStudentDialog(student)'><i class="fa fa-pencil"></i></td>
+          <td (click)='deleteStudentConfirmation(student.id)'><i class="fa fa-trash" aria-hidden="true"></i></td>
         </tr>
       </ng-template>
     </p-table>
@@ -60,6 +60,15 @@
     <h2 *ngIf='isAddStudent'>Please add student details here</h2>
     <h2 *ngIf='isUpdateStudent'>Please update student details here</h2>
     <div class="ui-g-12 ui-md-12">
+      <img [src]="studentImage" alt="profile.jpg" width='150' height='150'>
+      <file-stack [data-accept]="AppLitteralsConfig.uploadOptions" data-maxFiles="1" (complete)="onFileStackUploadComplete($event)">
+        <div class='ui-g-6 ui-md-6'>
+          <button *ngIf="studentImage == './../../../assets/images/profile.jpg' " pButton type="button" label="Upload"></button>
+          <button *ngIf="studentImage != './../../../assets/images/profile.jpg' " pButton type="button" label="Change"></button>
+        </div>
+      </file-stack>
+    </div>
+    <div class="ui-g-12 ui-md-12">
       <div class="ui-inputgroup">
         <input type="text" class="form-control" formControlName="name" pInputText placeholder="Name">
       </div>
@@ -73,7 +82,7 @@
       <div class="ui-inputgroup">
         <input type="number" class="form-control" formControlName="standarad" pInputText placeholder="standarad">
       </div>
-    </div>             
+    </div>
     <div class="ui-g-12 ui-md-12">
       <div class="ui-inputgroup">
         <input type="number" class="form-control" formControlName="fees" pInputText placeholder="fees">
@@ -85,7 +94,7 @@
       </div>
     </div>
     <!-- FILE STACK -->
-    <file-stack [data-accept]="AppLitteralsConfig.uploadOptions" data-maxFiles="6" (complete)="onFileStackUploadComplete($event)">
+    <!-- <file-stack [data-accept]="AppLitteralsConfig.uploadOptions" data-maxFiles="6" (complete)="onFileStackUploadComplete($event)">
       <div class='upload-button'>
         <button pButton type="button" icon='fa-cloud-upload' iconPos="left" label="Upload Image"></button>
       </div>
@@ -94,7 +103,7 @@
           <a href='{{file.url}}'class="font-red" target="_blank">
               <i class="fa fa-file"></i> {{file.filename}} <span *ngIf='!last'>,</span>
     </a><br>
-    </span>
+    </span> -->
     <!-- FILE STACK -->
     <div class='add-update-button'>
       <button *ngIf='isAddStudent' pButton type="button" icon="fa-check" iconPos="left" label="Add" [disabled]='studentForm.invalid'
