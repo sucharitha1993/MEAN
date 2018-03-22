@@ -22,9 +22,10 @@ db.on('error', console.error.bind(console, 'Mongo Connection Error:'));
 db.once('open', function () {
     // we're connected!
 });
-require('./server/routes/students.js')(app);
+require('./server/routes/router.js')(app);
 
-app.get('/', function (req, res) {
+app.get('*', function (req, res) {
+    res.sendFile(path.join(__dirname + '/dist/index.html'));
     console.log('Express Working!');
 });
 
