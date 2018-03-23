@@ -20,6 +20,9 @@ import { FileStackComponent } from './pages/filestack/filestack';
 import { StudentService } from './services/student.service';
 import { AppConfigService } from './services/app-config.services';
 
+//importing pipes
+import { FilterPipe } from './pipes/search-pipe';
+
 
 // NG PRIME Components
 import { TabMenuModule } from 'primeng/tabmenu';
@@ -31,6 +34,7 @@ import { MessageModule } from 'primeng/message';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
 import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 @NgModule({
@@ -41,7 +45,8 @@ import { CalendarModule } from 'primeng/calendar';
     FacultyComponent,
     OthersComponent,
     ActivitiesComponent,
-    FileStackComponent
+    FileStackComponent,
+    FilterPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -58,7 +63,8 @@ import { CalendarModule } from 'primeng/calendar';
     MessageModule,
     ButtonModule,
     SidebarModule,
-    CalendarModule
+    CalendarModule,
+    DropdownModule
   ],
   providers: [StudentService, ConfirmationService, AppConfigService],
   bootstrap: [AppComponent]

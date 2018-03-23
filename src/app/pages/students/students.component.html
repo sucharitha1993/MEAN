@@ -5,6 +5,10 @@
 
 <!-- Dividing Screen into 4:6 for add button and Table display -->
 <div class="ui-g push-below-container">
+  <div class="ui-g-12 category-dropdown-search">
+    <p-dropdown [options]="categories" [(ngModel)]="selectedCategory"></p-dropdown>
+    <input [(ngModel)]="searchText" placeholder="Search here">
+  </div>
   <div class="ui-g-2">
     <!-- START OF ADD STUDENT BUTTON -->
     <div class='addstudent-button'>
@@ -14,8 +18,9 @@
     <!-- END OF ADD STUDENT BUTTON -->
   </div>
   <div class="ui-g-10">
+    
     <!-- START OF STUDENT TABLE -->
-    <p-table [value]="students">
+    <p-table [value]="students | filter : searchText : selectedCategory" styleClass='student-table' [scrollable]="true" scrollHeight="400px">
       <ng-template pTemplate="header">
         <tr>
           <th>Id</th>
@@ -46,6 +51,9 @@
           <td (click)='updateStudentDialog(student)'><i class="fa fa-pencil"></i></td>
           <td (click)='deleteStudentConfirmation(student.id)'><i class="fa fa-trash" aria-hidden="true"></i></td>
         </tr>
+      </ng-template>
+      <ng-template>
+        <td *ngIf='students.length == 0' colspan='8'>No Documents Found ! </td>
       </ng-template>
     </p-table>
     <!-- END OF STUDENT TABLE -->

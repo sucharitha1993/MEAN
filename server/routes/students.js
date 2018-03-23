@@ -1,6 +1,6 @@
 var Students = require('./../models/students.js');
-
-module.exports = function (app) {
+const express = require('express');
+const app = express.Router();
     //to add a Student to DB (C - CREATE)
     app.post('/addStudent', function (req, res) {
         /* Adding Student with request payload method */
@@ -63,4 +63,4 @@ module.exports = function (app) {
             res.send(result);
         });
     });
-}
+module.exports = app;
