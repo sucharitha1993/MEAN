@@ -55,7 +55,7 @@ export class StudentsComponent implements OnInit {
   //side bar for add Student
   addStudentDialog() {
     this.initiateStudentControls();
-    this.studentImage = './../../../assets/images/profile.jpg';    
+    this.studentImage = './../../../assets/images/profile.jpg';
     this.isAddStudent = true;
     this.isUpdateStudent = false;
     this.display = true;
