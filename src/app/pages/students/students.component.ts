@@ -22,9 +22,20 @@ export class StudentsComponent implements OnInit {
   public display: boolean = false;
   public AppLitteralsConfig: any = AppLitteralsConfig;
   studentForm: FormGroup;
+  public searchText: any;
+  public categories: any[] = [
+    { label: 'Name', value: 'name' },
+    { label: 'Id', value: 'id' },
+    { label: 'Standard', value: 'standarad' },
+    { label: 'Fees', value: 'fees' }
+    // { label: 'Date Of Joining', value: 'date_of_joining' }
+  ];
+  public selectedCategory: string;
 
 
-  constructor(private formBuilder: FormBuilder, private studentService: StudentService, private confirmationService: ConfirmationService) { }
+  constructor(private formBuilder: FormBuilder, private studentService: StudentService, private confirmationService: ConfirmationService) {
+    this.selectedCategory = this.categories[0].value;
+  }
 
   ngOnInit() {
     this.getStudents();
@@ -52,7 +63,7 @@ export class StudentsComponent implements OnInit {
 
   //side bar for update Student
   updateStudentDialog(student) {
-    const studentImg = Object.assign({},student.img) || [];
+    const studentImg = Object.assign({}, student.img) || [];
     studentImg[0] = studentImg[0] || {};
     this.studentImage = studentImg[0].url || './../../../assets/images/profile.jpg';
     this.initiateStudentControls(student);
