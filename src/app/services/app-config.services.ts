@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class AppConfigService {
 
+
+    public studentReqUrl: string = 'http://localhost:9000/api/students/';
+    public facultyReqUrl: string = 'http://localhost:9000/api/faculty/';
+
     public filestackConfig: any = {
         key: 'APLxYPFxySfeP94sXhTQTz'
     };

@@ -1,0 +1,35 @@
+/* studentsComponent's private CSS styles */
+/deep/ p-messages {
+    top: 0;
+    right: 0;
+    z-index: 100;
+    position: absolute;  
+  }
+  .addstudent-button  {
+    position: fixed;
+    margin-left: 2%;
+  }
+  .add-update-button {
+    width: 45%;
+    margin: 0% 2.5%;
+    bottom: 10%;
+    position: fixed;
+  }
+  /deep/ p-calendar {
+    width: 86%;
+    border: 1px solid #A9A9A9;
+  }
+  /* /deep/ .student-table table {
+    width: auto;
+  } */
+  /deep/ .category-dropdown-search p-dropdown {
+    margin-left: 2.2%;
+  }
+  /deep/ .category-dropdown-search input {
+    height: 70%;
+    border: 1px solid #6580A1;
+    margin-left: 1%;
+    padding: 0.2%;
+  }
+  
+  

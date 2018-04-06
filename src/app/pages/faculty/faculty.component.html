@@ -1,3 +1,127 @@
-<div class='push-below-container'>
-  faculty works!
+<!-- START OF TOAST MESSAGES -->
+<p-messages [(value)]="msgs"></p-messages>
+<!-- END OF TOAST MESSAGES -->
+
+
+<!-- Dividing Screen into 4:6 for add button and Table display -->
+<div class="ui-g push-below-container">
+  <div class="ui-g-12 category-dropdown-search">
+    <p-dropdown [options]="categories" [(ngModel)]="selectedCategory"></p-dropdown>
+    <input [(ngModel)]="searchText" placeholder="Search here">
+  </div>
+  <div class="ui-g-2">
+    <!-- START OF ADD STUDENT BUTTON -->
+    <div class='addstudent-button'>
+      <button pButton type="button" icon="fa-plus" iconPos="left" label="Add Faculty" (click)="addFacultyDialog()">
+      </button>
+    </div>
+    <!-- END OF ADD STUDENT BUTTON -->
+  </div>
+  <div class="ui-g-10">
+
+    <!-- START OF STUDENT TABLE -->
+    <p-table [value]="faculty | filter : searchText : selectedCategory" styleClass='faculty-table' [scrollable]="true" scrollHeight="400px">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Teaching Standarad</th>
+          <th>Salary</th>
+          <th>Subjects</th>
+          <th>Date of Joining</th>
+          <th>Image</th>
+          <th>Update</th>
+          <th>Delete</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-faculty>
+        <tr>
+          <td>{{faculty?.id}}</td>
+          <td>{{faculty?.name}}</td>
+          <td>{{faculty?.teaching_standarad}}</td>
+          <td>{{faculty?.salary}}</td>
+          <td>{{faculty?.subjects}}</td>
+          <td>{{faculty?.date_of_joining | date:"dd/MM/yyyy"}}</td>
+          <td>
+            <span *ngFor='let file of faculty?.img; let i = index;let last= last;'>
+                    <a href='{{file.url}}'class="font-red" target="_blank">
+                        <i class="fa fa-file"></i> {{file.filename}} <span *ngIf='!last'>,</span>
+            </a>
+            <br>
+            </span>
+          </td>
+          <td (click)='updateFacultyDialog(faculty)'><i class="fa fa-pencil"></i></td>
+          <td (click)='deleteFacultyConfirmation(faculty.id)'><i class="fa fa-trash" aria-hidden="true"></i></td>
+        </tr>
+      </ng-template>
+      <ng-template>
+        <td *ngIf='faculty.length == 0' colspan='8'>No Documents Found ! </td>
+      </ng-template>
+    </p-table>
+    <!-- END OF STUDENT TABLE -->
+  </div>
 </div>
+<!-- End of add button and Table display Grid -->
+
+
+<!-- START OF ADD STUDENT SIDEBAR-->
+<p-sidebar [(visible)]='display' *ngIf='isAddFaculty || isUpdateFaculty'>
+  <div class="ui-g ui-fluid addStudentPopup" [formGroup]="facultyForm">
+    <h2 *ngIf='isAddFaculty'>Please add Faculty details here</h2>
+    <h2 *ngIf='isUpdateFaculty'>Please update Faculty details here</h2>
+    <div class="ui-g-12 ui-md-12">
+      <img [src]="facultyImage" alt="profile.jpg" width='150' height='150'>
+      <file-stack [data-accept]="AppLitteralsConfig.uploadOptions" data-maxFiles="1" (complete)="onFileStackUploadComplete($event)">
+        <div class='ui-g-6 ui-md-6'>
+          <button *ngIf="facultyImage == './../../../assets/images/profile.jpg' " pButton type="button" label="Upload"></button>
+          <button *ngIf="facultyImage != './../../../assets/images/profile.jpg' " pButton type="button" label="Change"></button>
+        </div>
+      </file-stack>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="text" class="form-control" formControlName="name" pInputText placeholder="Name">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="number" class="form-control" formControlName="id" pInputText placeholder="Id">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="number" class="form-control" formControlName="teaching_standarad" pInputText placeholder="teaching standarad">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="number" class="form-control" formControlName="salary" pInputText placeholder="salary">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <input type="text" class="form-control" formControlName="subjects" pInputText placeholder="Subjects">
+      </div>
+    </div>
+    <div class="ui-g-12 ui-md-12">
+      <div class="ui-inputgroup">
+        <p-calendar formControlName="date_of_joining" placeholder="date of joining"></p-calendar>
+      </div>
+    </div>
+    <div class='add-update-button'>
+      <button *ngIf='isAddFaculty' pButton type="button" icon="fa-check" iconPos="left" label="Add" [disabled]='facultyForm.invalid'
+        (click)="addFaculty()">
+          </button>
+      <button *ngIf='isUpdateFaculty' pButton type="button" icon="fa-pencil" iconPos="left" label="Update" [disabled]='facultyForm.invalid'
+        (click)="updateFaculty()">
+          </button>
+    </div>
+  </div>
+</p-sidebar>
+<!-- END OF ADD STUDENT SIDEBAR -->
+
+
+
+<!-- START OF DELETE DIALOG BOX -->
+<p-confirmDialog></p-confirmDialog>
+<!-- END OF DELETE DIALOG BOX -->

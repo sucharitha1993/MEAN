@@ -1,3 +1,4 @@
+import { FacultyService } from './services/faculty.service';
 //importing Angular predefined modues
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -66,7 +67,7 @@ import { DropdownModule } from 'primeng/dropdown';
     CalendarModule,
     DropdownModule
   ],
-  providers: [StudentService, ConfirmationService, AppConfigService],
+  providers: [StudentService, FacultyService, ConfirmationService, AppConfigService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

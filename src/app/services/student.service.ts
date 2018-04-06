@@ -1,9 +1,9 @@
+import { AppConfigService } from './app-config.services';
 import { IStudent } from './../../interfaces/istudent';
 import { students } from './../../mock-data/students-mock-data';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import 'rxjs/Rx';
 
@@ -17,7 +17,9 @@ export class StudentService {
 
   public url: any = 'http://localhost:9000/api/students/';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, public config: AppConfigService) {
+    this.url = config.studentReqUrl;
+  }
 
 
   getStudents(): Observable<IStudent[]> {
@@ -52,7 +54,7 @@ export class StudentService {
   /** PUT: update the hero on the server */
   updateStudent(params) {
     return this.http.put(`${this.url}updateStudent`, params.request)
-    .pipe();
+      .pipe();
   }
 
   //to make Request with action and params
