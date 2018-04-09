@@ -15,7 +15,7 @@ const httpOptions = {
 @Injectable()
 export class StudentService {
 
-  public url: any = 'http://localhost:9000/api/students/';
+  public url: string;
 
   constructor(private http: HttpClient, public config: AppConfigService) {
     this.url = config.studentReqUrl;
